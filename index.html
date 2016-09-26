@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <!--
+    <link href="/normalize.css" rel="stylesheet">
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
+    <script type='text/javascript' src="dungeon.js"></script>
+
+    <script>
+        var cur = null;
+        var dungArrCounter = 0;
+        var dungArr = [];
+        var traversed = 0;
+        var deaths = 0;
+        var completions = 0;
+        var totalRooms = 0;
+        var gamesPlayed = 0;
+
+
+        $(document).ready(function() {
+            $(".playAgain").hide();
+            $(".begin").hide();
+            $(".presets").hide();
+        });
+
+        function removeDivs() {
+            for (i = 0; i < cur.children.length; i++) {
+                document.getElementsByTagName('td')[0].removeChild(document.getElementsByTagName('div')[0]);
+                document.getElementsByTagName('tr')[0].removeChild(document.getElementsByTagName('td')[0]);
+            }
+        }
+
+        function setDivs() {
+            $(".presets").hide();
+            $(".creds").hide();
+            gamesPlayed++;
+            totalRooms++;
+            traversed++;
+            document.getElementsByTagName('h4')[0].innerHTML = "Rooms Traversed: " + traversed;
+            document.getElementsByTagName('h4')[3].innerHTML = "Total Rooms Traversed: " + totalRooms;
+            document.getElementsByTagName('h4')[4].innerHTML = "Games Played: " + gamesPlayed;
+            $(".begin").hide();
+            var size_ = document.getElementsByTagName('select')[0].value;
+            var dif_ = document.getElementsByTagName('select')[1].value;
+            dungArrCounter = 0;
+            dungArr = [];
+            dungArr.push(new Dungeon());
+            dungArr[dungArrCounter].generate(size_, dif_);
+            var solve = dungArr[dungArrCounter].solvable(); //make sure the maze can be solved
+
+            while (solve == 0) {
+                dungArr.push(new Dungeon());
+                dungArrCounter++;
+                dungArr[dungArrCounter].generate(size_, dif_);
+                solve = dungArr[dungArrCounter].solvable();
+            }
+
+            dungArr[dungArrCounter].printDung();
+            cur = dungArr[dungArrCounter].head;
+
+            for(i = 0; i < cur.children.length; i++) {
+                var td_ = document.createElement("td");
+                var div_ = document.createElement("div");
+                div_.style.background = "blue";
+                div_.style.width = "200px";
+                div_.style.height = "200px";
+                div_.style.color = "white";
+                div_.innerHTML = i + "_" + cur.children[i].value;
+                div_.className = "divclass";
+                div_.id = "inside" + i;
+                div_.onclick = theNext;
+                document.getElementsByTagName('tr')[0].appendChild(td_);
+                document.getElementsByTagName('td')[i].appendChild(div_);
+            }
+        }
+
+        function theNext() {
+            //$("h3").css("color", "yellow");
+            var divNum = $(this).text()[0];
+            if (cur.children[divNum].value == "PIT") { //touched a PIT
+                deaths++;
+                document.getElementsByTagName('h4')[1].innerHTML = "Deaths: " + deaths;
+                removeDivs();
+                var td_ = document.createElement("td");
+                var div_ = document.createElement("div");
+                div_.style.background = "red";
+                div_.style.width = "200px";
+                div_.style.height = "200px";
+                div_.style.color = "black";
+                div_.innerHTML = "GAME OVER";
+                div_.className = "over";
+                document.getElementsByTagName('tr')[0].appendChild(td_);
+                document.getElementsByTagName('td')[0].appendChild(div_);
+                $(".playAgain").show();
+                $(".presets").show();
+            } else if (cur.children[divNum].value == "END") { //reached the finish
+                completions++;
+                document.getElementsByTagName('h4')[2].innerHTML = "Completions: " + completions;
+                removeDivs();
+                var td_1 = document.createElement("td");
+                var div_1 = document.createElement("div");
+                div_1.style.background = "orange";
+                div_1.style.width = "200px";
+                div_1.style.height = "200px";
+                div_1.style.color = "black";
+                div_1.innerHTML = "YOU WON";
+                div_1.className = "over";
+                document.getElementsByTagName('tr')[0].appendChild(td_1);
+                document.getElementsByTagName('td')[0].appendChild(div_1);
+                $(".playAgain").show();
+                document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value + " is our new WORLD CHAMPION Dungeon Solver!";
+                $(".presets").show();
+            } else { //continue to play the game
+                totalRooms++;
+                traversed++;
+                document.getElementsByTagName('h4')[0].innerHTML = "Rooms Traversed: " + traversed;
+                document.getElementsByTagName('h4')[3].innerHTML = "Total Rooms Traversed: " + totalRooms;
+                removeDivs();
+                cur = cur.children[divNum];
+                for(i = 0; i < cur.children.length; i++) {
+                    var td_2 = document.createElement("td");
+                    var div_2 = document.createElement("div");
+                    div_2.style.background = "blue";
+                    div_2.style.width = "200px";
+                    div_2.style.height = "200px";
+                    div_2.style.color = "white";
+                    div_2.innerHTML = i + "_" + cur.children[i].value;
+                    div_2.className = "divclass";
+                    div_2.id = "inside" + i;
+                    div_2.onclick = theNext;
+                    document.getElementsByTagName('tr')[0].appendChild(td_2);
+                    document.getElementsByTagName('td')[i].appendChild(div_2);
+                }
+            }
+        }
+
+        function newGame() {
+            traversed = 0;
+            document.getElementsByTagName('h4')[0].innerHTML = "Rooms Traversed: " + traversed;
+            document.getElementsByTagName('td')[0].removeChild(document.getElementsByTagName('div')[0]);
+            document.getElementsByTagName('tr')[0].removeChild(document.getElementsByTagName('td')[0]);
+            $(".playAgain").hide();
+            var size_ = document.getElementsByTagName('select')[0].value;
+            var dif_ = document.getElementsByTagName('select')[1].value;
+            dungArr.push(new Dungeon());
+            dungArrCounter++;
+            dungArr[dungArrCounter].generate(size_, dif_);
+            var solve = dungArr[dungArrCounter].solvable(); //make sure the maze can be solved
+
+            while (solve == 0) {
+                dungArr.push(new Dungeon());
+                dungArrCounter++;
+                dungArr[dungArrCounter].generate(size_, dif_);
+                solve = dungArr[dungArrCounter].solvable();
+            }
+
+            dungArr[dungArrCounter].printDung();
+            cur = dungArr[dungArrCounter].head;
+            setDivs();
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: helvetica, sans-serif;
+            margin: 0 auto;
+            max-width: 1000px;
+            background: #232323;
+        }
+        h1 {
+            font-family: 'Londrina Shadow', cursive;
+            text-align: center;
+            font-size: 75px;
+            color: #aaaaaa;
+        }
+        h2 {
+            text-align: center;
+            color: #bbbbbb;
+            margin: 0px 0 70px 0;
+        }
+        div {
+            text-align: center;
+            position: relative;
+            margin: 20px 20px 20px 20px;
+            border-radius: 50px;
+            width: 100px;
+            height: 100px;
+        }
+        h4 {
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Dungeon Solver</h1>
+<h2></h2>
+<h3></h3>
+
+<h4>Rooms Traversed: 0</h4>
+<h4>Deaths: 0</h4>
+<h4>Completions: 0</h4>
+<h4>Total Rooms Traversed: 0</h4>
+<h4>Games Played: 0</h4>
+
+<p class="creds">
+USERNAME: <input type="text" id="username" value="?">
+HEIGHT: <input type="text" id="height" value="?">
+WEIGHT: <input type="text" id="weight" value="?">
+<button class="submit" onclick="blah()">Submit</button>
+</p>
+
+<br>
+
+<p class="presets">
+Dungeon Size: <select>
+    <option value="small">small</option>
+    <option value="medium">medium</option>
+    <option value="big">big</option>
+    <option value="massive">massive</option>
+</select>
+
+Difficulty: <select>
+    <option value="easy">easy</option>
+    <option value="medium">medium</option>
+    <option value="hard">hard</option>
+</select>
+</p>
+
+<script>
+    function blah() {
+        $(".begin").show();
+        $(".submit").hide();
+        $(".creds").hide();
+        $(".presets").show();
+        document.getElementsByTagName('h2')[0].innerHTML = "At " + document.getElementById("height").value
+                + ", weighing in at "+ document.getElementById("weight").value + "lbs, "
+                + document.getElementById("username").value + " will attempt to solve the dungeon!";
+    }
+</script>
+
+<br>
+
+<button class="begin" onclick="setDivs()" > BEGIN! </button>
+<button class="playAgain" onclick="newGame()" > New Game? </button>
+
+<article>
+
+</article>
+
+<table>
+    <tr> </tr>
+</table>
+
+</body>
