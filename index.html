@@ -119,7 +119,6 @@
                 document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value+" is our new WORLD CHAMPION of exploring "+size_+" "+dif_+" Dungeons!";
                 $(".presets").show();
             } else { //continue to play the game
-            	document.getElementsByTagName('h3')[1].innerHTML = "You are currently in room: " + cur.value;
                 totalRooms++;
                 traversed++;
                 document.getElementsByTagName('h4')[0].innerHTML = "Rooms Traversed: " + traversed;
@@ -140,6 +139,7 @@
                     document.getElementsByTagName('tr')[0].appendChild(td_2);
                     document.getElementsByTagName('td')[i].appendChild(div_2);
                 }
+                document.getElementsByTagName('h3')[1].innerHTML = "You are currently in room: " + cur.value;
             }
         }
 
