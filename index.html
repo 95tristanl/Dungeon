@@ -20,7 +20,8 @@
         var completions = 0;
         var totalRooms = 0;
         var gamesPlayed = 0;
-
+        var size_ = ""; //document.getElementsByTagName('select')[0].value;
+        var dif_ = ""; //document.getElementsByTagName('select')[1].value;
 
         $(document).ready(function() {
             $(".playAgain").hide();
@@ -49,8 +50,8 @@
             document.getElementsByTagName('h4')[3].innerHTML = "Total Rooms Traversed: " + totalRooms;
             document.getElementsByTagName('h4')[4].innerHTML = "Games Played: " + gamesPlayed;
             $(".begin").hide();
-            var size_ = document.getElementsByTagName('select')[0].value;
-            var dif_ = document.getElementsByTagName('select')[1].value;
+            size_ = document.getElementsByTagName('select')[0].value;
+            dif_ = document.getElementsByTagName('select')[1].value;
             dungArrCounter = 0;
             dungArr = [];
             dungArr.push(new Dungeon());
@@ -70,7 +71,7 @@
             for(i = 0; i < cur.children.length; i++) {
                 var td_ = document.createElement("td");
                 var div_ = document.createElement("div");
-                div_.style.background = "rgb("+rgbNum()+","+rgbNum()+","+rgbNum()+")";
+                div_.style.background = "blue"; //"rgb("+rgbNum()+","+rgbNum()+","+rgbNum()+")";
                 div_.style.width = "200px";
                 div_.style.height = "200px";
                 div_.style.color = "white";
@@ -117,9 +118,7 @@
                 document.getElementsByTagName('tr')[0].appendChild(td_1);
                 document.getElementsByTagName('td')[0].appendChild(div_1);
                 $(".playAgain").show();
-                var size_1 = document.getElementsByTagName('select')[0].value;
-            	var dif_1 = document.getElementsByTagName('select')[1].value;
-                document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value+" is our new WORLD CHAMPION of exploring "+size_1+" "+dif_1+" Dungeons!";
+                document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value+" is our new WORLD CHAMPION of exploring "+size_+" "+dif_+" Dungeons!";
                 $(".presets").show();
             } else { //continue to play the game
                 totalRooms++;
@@ -131,7 +130,7 @@
                 for(i = 0; i < cur.children.length; i++) {
                     var td_2 = document.createElement("td");
                     var div_2 = document.createElement("div");
-                    div_2.style.background = "rgb("+rgbNum()+","+rgbNum()+","+rgbNum()+")";
+                    div_2.style.background = "blue"; //"rgb("+rgbNum()+","+rgbNum()+","+rgbNum()+")";
                     div_2.style.width = "200px";
                     div_2.style.height = "200px";
                     div_2.style.color = "white";
@@ -151,8 +150,8 @@
             document.getElementsByTagName('td')[0].removeChild(document.getElementsByTagName('div')[0]);
             document.getElementsByTagName('tr')[0].removeChild(document.getElementsByTagName('td')[0]);
             $(".playAgain").hide();
-            var size_ = document.getElementsByTagName('select')[0].value;
-            var dif_ = document.getElementsByTagName('select')[1].value;
+            size_ = document.getElementsByTagName('select')[0].value;
+            dif_ = document.getElementsByTagName('select')[1].value;
             dungArr.push(new Dungeon());
             dungArrCounter++;
             dungArr[dungArrCounter].generate(size_, dif_);
