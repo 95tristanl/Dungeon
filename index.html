@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>title</title>
-    <!--
-    <link href="/normalize.css" rel="stylesheet">
-    -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
@@ -82,6 +79,7 @@
                 document.getElementsByTagName('tr')[0].appendChild(td_);
                 document.getElementsByTagName('td')[i].appendChild(div_);
             }
+            document.getElementsByTagName('h3')[1].innerHTML = "You are currently in room: " + cur.value;
         }
 
         function theNext() {
@@ -121,6 +119,7 @@
                 document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value+" is our new WORLD CHAMPION of exploring "+size_+" "+dif_+" Dungeons!";
                 $(".presets").show();
             } else { //continue to play the game
+            	document.getElementsByTagName('h3')[1].innerHTML = "You are currently in room: " + cur.value;
                 totalRooms++;
                 traversed++;
                 document.getElementsByTagName('h4')[0].innerHTML = "Rooms Traversed: " + traversed;
@@ -257,6 +256,8 @@ Difficulty: <select>
 <article>
 
 </article>
+
+<h3></h3>
 
 <table>
     <tr> </tr>

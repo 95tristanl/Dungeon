@@ -8,7 +8,7 @@ function Node(value) {
 }
 
 function Dungeon() {
-    this.head = new Node("HEAD");
+    this.head = new Node("0");
     this.pit = new Node("PIT");
     this.end = new Node("END");
     this.nodeList = [this.head];
