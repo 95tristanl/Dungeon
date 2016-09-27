@@ -70,7 +70,7 @@
                 div_.style.width = "200px";
                 div_.style.height = "200px";
                 div_.style.color = "white";
-                div_.innerHTML = "Door " + i; // + "_" + cur.children[i].value;
+                div_.innerHTML = "" + i; // + "_" + cur.children[i].value;
                 div_.className = "divclass";
                 div_.id = "inside" + i;
                 div_.onclick = theNext;
@@ -81,7 +81,7 @@
 
         function theNext() {
             //$("h3").css("color", "yellow");
-            var divNum = $(this).text()[0];
+            var divNum = $(this).text();
             if (cur.children[divNum].value == "PIT") { //touched a PIT
                 deaths++;
                 document.getElementsByTagName('h4')[1].innerHTML = "Deaths: " + deaths;
@@ -129,7 +129,7 @@
                     div_2.style.width = "200px";
                     div_2.style.height = "200px";
                     div_2.style.color = "white";
-                    div_2.innerHTML = "Door " + i; //+ "_" + cur.children[i].value;
+                    div_2.innerHTML = "" + i; //+ "_" + cur.children[i].value;
                     div_2.className = "divclass";
                     div_2.id = "inside" + i;
                     div_2.onclick = theNext;
