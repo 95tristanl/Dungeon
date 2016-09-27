@@ -27,6 +27,10 @@
             $(".begin").hide();
             $(".presets").hide();
         });
+        
+        function rgbNum() {
+            return parseInt(Math.random()*254)+1;
+        }
 
         function removeDivs() {
             for (i = 0; i < cur.children.length; i++) {
@@ -66,7 +70,7 @@
             for(i = 0; i < cur.children.length; i++) {
                 var td_ = document.createElement("td");
                 var div_ = document.createElement("div");
-                div_.style.background = "blue";
+                div_.style.background = "rgb("+rgbNum()+","+rgbNum()+","+rgbNum()+")";
                 div_.style.width = "200px";
                 div_.style.height = "200px";
                 div_.style.color = "white";
@@ -113,7 +117,10 @@
                 document.getElementsByTagName('tr')[0].appendChild(td_1);
                 document.getElementsByTagName('td')[0].appendChild(div_1);
                 $(".playAgain").show();
-                document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value + " is our new WORLD CHAMPION Dungeon Solver!";
+                var size_1 = document.getElementsByTagName('select')[0].value;
+            	var dif_1 = document.getElementsByTagName('select')[1].value;
+                document.getElementsByTagName('h3')[0].innerHTML = document.getElementById("username").value 
+                	+ " is our new WORLD CHAMPION of exploring " size_1 + " " + dif_1 " Dungeons!";
                 $(".presets").show();
             } else { //continue to play the game
                 totalRooms++;
@@ -125,7 +132,7 @@
                 for(i = 0; i < cur.children.length; i++) {
                     var td_2 = document.createElement("td");
                     var div_2 = document.createElement("div");
-                    div_2.style.background = "blue";
+                    div_2.style.background = "rgb("+rgbNum()+","+rgbNum()+","+rgbNum()+")";
                     div_2.style.width = "200px";
                     div_2.style.height = "200px";
                     div_2.style.color = "white";
@@ -198,7 +205,7 @@
 </head>
 <body>
 
-<h1>Dungeon Solver</h1>
+<h1>Dungeon Diver</h1>
 <h2></h2>
 <h3></h3>
 
