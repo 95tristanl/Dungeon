@@ -19,6 +19,7 @@
         var gamesPlayed = 0;
         var size_ = ""; //document.getElementsByTagName('select')[0].value;
         var dif_ = ""; //document.getElementsByTagName('select')[1].value;
+        var colorArr = [];
 
         $(document).ready(function() {
             $(".playAgain").hide();
@@ -68,7 +69,7 @@
             for(i = 0; i < cur.children.length; i++) {
                 var td_ = document.createElement("td");
                 var div_ = document.createElement("div");
-                div_.style.backgroundColor = "rgb("+rgbNum()+", "+rgbNum()+", "+rgbNum()+")";
+                div_.style.backgroundColor = "rgb("+colorArr[parseInt(cur.value)][i][0]+", "+colorArr[parseInt(cur.value)][i][0]+", "+colorArr[parseInt(cur.value)][i][0]+")";
                 div_.style.width = "200px";
                 div_.style.height = "200px";
                 div_.style.color = "white";
@@ -80,6 +81,22 @@
                 document.getElementsByTagName('td')[i].appendChild(div_);
             }
             document.getElementsByTagName('h3')[1].innerHTML = "You are currently in room: " + cur.value;
+        }
+        
+        function setRoomColors() {
+            for (var i = 0; i < dungArr[dungArrCounter].nodeList.length; i++)
+            {
+                var roomColorArr = [];
+                for (var j = 0; j < dungArr[dungArrCounter].nodeList[i].children.length; j++) {
+                    var rgbArr = [];
+                    rgbArr.push(rgbNum());
+                    rgbArr.push(rgbNum());
+                    rgbArr.push(rgbNum());
+                    roomColorArr.push(rgbArr);
+                }
+                colorArr.push(roomColorArr);
+            }
+            console.log(colorArr.length);
         }
 
         function theNext() {
@@ -128,7 +145,7 @@
                 for(i = 0; i < cur.children.length; i++) {
                     var td_2 = document.createElement("td");
                     var div_2 = document.createElement("div");
-                    div_2.style.backgroundColor = "rgb("+rgbNum()+", "+rgbNum()+", "+rgbNum()+")";
+                    div_2.style.backgroundColor = "rgb("+colorArr[parseInt(cur.value)][i][0]+", "+colorArr[parseInt(cur.value)][i][0]+", "+colorArr[parseInt(cur.value)][i][0]+")";
                     div_2.style.width = "200px";
                     div_2.style.height = "200px";
                     div_2.style.color = "white";
