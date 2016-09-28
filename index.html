@@ -37,6 +37,22 @@
                 document.getElementsByTagName('tr')[0].removeChild(document.getElementsByTagName('td')[0]);
             }
         }
+        
+        function setRoomColors() {
+            for (var i = 0; i < dungArr[dungArrCounter].nodeList.length; i++)
+            {
+            	var roomColorArr = []; //every room has doors leading to child rooms
+                for (var j = 0; j < dungArr[dungArrCounter].nodeList[i].children.length; j++) {
+                    var rgbArr = [];
+                    rgbArr.push(rgbNum());
+                    rgbArr.push(rgbNum());
+                    rgbArr.push(rgbNum());
+                    roomColorArr.push(rgbArr);
+                }
+                colorArr.push(roomColorArr);
+            }
+            console.log(colorArr.length);
+        }
 
         function setDivs() {
             $(".presets").hide();
@@ -65,8 +81,10 @@
 
             dungArr[dungArrCounter].printDung();
             cur = dungArr[dungArrCounter].head;
+            setRoomColors();
+            console.log(colorArr[parseInt(cur.children[0].value)][0][0]);
 
-            for(i = 0; i < cur.children.length; i++) {
+            for(var i = 0; i < cur.children.length; i++) {
                 var td_ = document.createElement("td");
                 var div_ = document.createElement("div");
                 div_.style.backgroundColor = "rgb("+colorArr[parseInt(cur.value)][i][0]+", "+colorArr[parseInt(cur.value)][i][1]+", "+colorArr[parseInt(cur.value)][i][2]+")";
@@ -81,22 +99,6 @@
                 document.getElementsByTagName('td')[i].appendChild(div_);
             }
             document.getElementsByTagName('h3')[1].innerHTML = "You are currently in room: " + cur.value;
-        }
-        
-        function setRoomColors() {
-            for (var i = 0; i < dungArr[dungArrCounter].nodeList.length; i++)
-            {
-                var roomColorArr = [];
-                for (var j = 0; j < dungArr[dungArrCounter].nodeList[i].children.length; j++) {
-                    var rgbArr = [];
-                    rgbArr.push(rgbNum());
-                    rgbArr.push(rgbNum());
-                    rgbArr.push(rgbNum());
-                    roomColorArr.push(rgbArr);
-                }
-                colorArr.push(roomColorArr);
-            }
-            console.log(colorArr.length);
         }
 
         function theNext() {
