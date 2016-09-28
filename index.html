@@ -82,6 +82,7 @@
             dungArr[dungArrCounter].printDung();
             cur = dungArr[dungArrCounter].head;
             setRoomColors();
+            console.log(cur.value);
             console.log(colorArr[parseInt(cur.children[0].value)][0][0]);
 
             for(var i = 0; i < cur.children.length; i++) {
