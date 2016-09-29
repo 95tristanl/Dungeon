@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>title</title>
+    <title>Dungeon Diver</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+    <!--
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
+    -->
     <script type='text/javascript' src="dungeon.js"></script>
 
     <script>
@@ -17,8 +19,8 @@
         var completions = 0;
         var totalRooms = 0;
         var gamesPlayed = 0;
-        var size_ = ""; //document.getElementsByTagName('select')[0].value;
-        var dif_ = ""; //document.getElementsByTagName('select')[1].value;
+        var size_ = ""; 
+        var dif_ = "";
         var colorArr = [];
 
         $(document).ready(function() {
@@ -39,9 +41,8 @@
         }
         
         function setRoomColors() {
-            for (var i = 0; i < dungArr[dungArrCounter].nodeList.length; i++)
-            {
-            	var roomColorArr = []; //every room has doors leading to child rooms
+            for (var i = 0; i < dungArr[dungArrCounter].nodeList.length; i++){
+            	var roomColorArr = []; 
                 for (var j = 0; j < dungArr[dungArrCounter].nodeList[i].children.length; j++) {
                     var rgbArr = [];
                     rgbArr.push(rgbNum());
@@ -70,7 +71,7 @@
             dungArr = [];
             dungArr.push(new Dungeon());
             dungArr[dungArrCounter].generate(size_, dif_);
-            var solve = dungArr[dungArrCounter].solvable(); //make sure the maze can be solved
+            var solve = dungArr[dungArrCounter].solvable(); 
 
             while (solve == 0) {
                 dungArr.push(new Dungeon());
@@ -92,9 +93,9 @@
                 div_.style.width = "200px";
                 div_.style.height = "200px";
                 div_.style.color = "white";
-                div_.innerHTML = "" + i; // + "_" + cur.children[i].value;
-                div_.className = "divclass";
-                div_.id = "inside" + i;
+                div_.innerHTML = "" + i; 
+                //div_.className = "divclass";
+                //div_.id = "inside" + i;
                 div_.onclick = theNext;
                 document.getElementsByTagName('tr')[0].appendChild(td_);
                 document.getElementsByTagName('td')[i].appendChild(div_);
@@ -103,7 +104,6 @@
         }
 
         function theNext() {
-            //$("h3").css("color", "yellow");
             var divNum = $(this).text();
             if (cur.children[divNum].value == "PIT") { //touched a PIT
                 deaths++;
@@ -116,7 +116,7 @@
                 div_.style.height = "200px";
                 div_.style.color = "black";
                 div_.innerHTML = "GAME OVER";
-                div_.className = "over";
+                //div_.className = "over";
                 document.getElementsByTagName('tr')[0].appendChild(td_);
                 document.getElementsByTagName('td')[0].appendChild(div_);
                 $(".playAgain").show();
@@ -132,7 +132,7 @@
                 div_1.style.height = "200px";
                 div_1.style.color = "black";
                 div_1.innerHTML = "YOU WON";
-                div_1.className = "over";
+                //div_1.className = "over";
                 document.getElementsByTagName('tr')[0].appendChild(td_1);
                 document.getElementsByTagName('td')[0].appendChild(div_1);
                 $(".playAgain").show();
@@ -152,9 +152,9 @@
                     div_2.style.width = "200px";
                     div_2.style.height = "200px";
                     div_2.style.color = "white";
-                    div_2.innerHTML = "" + i; //+ "_" + cur.children[i].value;
-                    div_2.className = "divclass";
-                    div_2.id = "inside" + i;
+                    div_2.innerHTML = "" + i; 
+                    //div_2.className = "divclass";
+                    //div_2.id = "inside" + i;
                     div_2.onclick = theNext;
                     document.getElementsByTagName('tr')[0].appendChild(td_2);
                     document.getElementsByTagName('td')[i].appendChild(div_2);
@@ -175,7 +175,7 @@
             dungArr.push(new Dungeon());
             dungArrCounter++;
             dungArr[dungArrCounter].generate(size_, dif_);
-            var solve = dungArr[dungArrCounter].solvable(); //make sure the maze can be solved
+            var solve = dungArr[dungArrCounter].solvable(); 
 
             while (solve == 0) {
                 dungArr.push(new Dungeon());
@@ -188,6 +188,16 @@
             cur = dungArr[dungArrCounter].head;
             setDivs();
         }
+        
+        function blah() {
+        	$(".begin").show();
+        	$(".submit").hide();
+        	$(".creds").hide();
+        	$(".presets").show();
+        	document.getElementsByTagName('h2')[0].innerHTML = "At " + document.getElementById("height").value
+                + ", weighing in at "+ document.getElementById("weight").value + "lbs, "
+                + document.getElementById("username").value + " will attempt to solve the dungeon!";
+    	}
     </script>
 
     <style>
@@ -216,12 +226,8 @@
             width: 100px;
             height: 100px;
         }
-        h4 {
-            color: aqua;
-        }
-        h3 {
-            color: lightsteelblue;
-        }
+        h4 {color: aqua;}
+        h3 {color: lightsteelblue;}
     </style>
 </head>
 <body>
@@ -234,12 +240,13 @@
     Good luck!
 </p>
 <p style="color: green">Enter some info below for an epic opening. Then select your dungeon presets. Then BEGIN! </p>
+
 <h2></h2>
 <h3></h3>
 
 <h4>Rooms Traversed: 0</h4>
 <h4>Deaths: 0</h4>
-<h4>Completions: 0</h4>
+<h4>Wins: 0</h4>
 <h4>Total Rooms Traversed: 0</h4>
 <h4>Games Played: 0</h4>
 
@@ -267,31 +274,17 @@ Difficulty: <select>
 </select>
 </p>
 
-<script>
-    function blah() {
-        $(".begin").show();
-        $(".submit").hide();
-        $(".creds").hide();
-        $(".presets").show();
-        document.getElementsByTagName('h2')[0].innerHTML = "At " + document.getElementById("height").value
-                + ", weighing in at "+ document.getElementById("weight").value + "lbs, "
-                + document.getElementById("username").value + " will attempt to solve the dungeon!";
-    }
-</script>
-
 <br>
 
 <button class="begin" onclick="setDivs()" > BEGIN! </button>
 <button class="playAgain" onclick="newGame()" > New Game? </button>
 
-<article>
-
-</article>
+<article></article>
 
 <h3></h3>
 
 <table>
-    <tr> </tr>
+    <tr></tr>
 </table>
 
 </body>
